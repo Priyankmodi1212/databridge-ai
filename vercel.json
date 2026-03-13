@@ -3,37 +3,3 @@
     { "source": "/api/(.*)", "destination": "/api/$1" }
   ]
 }
-```
-4. Click **"Commit changes"**
-
----
-
-### Step 3 — Move index.html to public folder
-
-1. Click your existing `index.html`
-2. Click the **pencil icon** to edit
-3. At the top where it shows the filename, click on `index.html` and change it to `public/index.html`
-4. Click **"Commit changes"**
-
----
-
-### Step 4 — Add API key in Vercel
-
-1. Go to [vercel.com/dashboard](https://vercel.com/dashboard)
-2. Click your project → **Settings → Environment Variables**
-3. Add:
-   - Name: `GEMINI_API_KEY`
-   - Value: your key
-4. Click **Save**
-5. Go to **Deployments → click the 3 dots → Redeploy**
-
----
-
-### Final structure should look like this:
-```
-databridge-ai/
-├── api/
-│   └── analyze.js
-├── public/
-│   └── index.html
-└── vercel.json
