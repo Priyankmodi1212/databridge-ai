@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<html lang="en">
+<head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Language" content="en">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,16 +8,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0f;
-    --surface: #111118;
-    --surface2: #1a1a24;
-    --border: #2a2a3a;
-    --accent: #00e5a0;
-    --accent2: #7c3aed;
-    --accent3: #f59e0b;
-    --text: #e8e8f0;
-    --muted: #6b6b80;
-    --danger: #ef4444;
+    --bg: #f5f5f0;
+    --surface: #ffffff;
+    --surface2: #f0f0eb;
+    --border: #e0e0d8;
+    --accent: #00a67e;
+    --accent-light: rgba(0,166,126,0.08);
+    --accent3: #d97706;
+    --text: #1a1a1a;
+    --muted: #6b6b6b;
+    --danger: #dc2626;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,29 +30,27 @@
     overflow-x: hidden;
   }
 
-  /* GRID BACKGROUND */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     background-image:
-      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(0,166,126,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,166,126,0.04) 1px, transparent 1px);
     background-size: 40px 40px;
     pointer-events: none;
     z-index: 0;
   }
 
-  /* NAV */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    padding: 20px 40px;
+    padding: 18px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(10,10,15,0.85);
+    background: rgba(245,245,240,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
@@ -62,21 +60,50 @@
     font-size: 1.3rem;
     font-weight: 800;
     letter-spacing: -0.5px;
+    color: var(--text);
   }
   .logo span { color: var(--accent); }
 
   .nav-badge {
     font-size: 0.65rem;
-    background: rgba(0,229,160,0.1);
+    background: var(--accent-light);
     color: var(--accent);
-    border: 1px solid rgba(0,229,160,0.3);
+    border: 1px solid rgba(0,166,126,0.25);
     padding: 4px 10px;
     border-radius: 20px;
     letter-spacing: 1px;
     text-transform: uppercase;
   }
 
-  /* HERO */
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .btn-primary:hover { background: #008f6c; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,166,126,0.25); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 14px 28px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
   .hero {
     position: relative;
     z-index: 1;
@@ -108,13 +135,9 @@
     max-width: 900px;
     opacity: 0;
     animation: fadeUp 0.6s 0.4s forwards;
+    color: var(--text);
   }
-
-  .hero h1 em {
-    font-style: normal;
-    color: var(--accent);
-    position: relative;
-  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
 
   .hero-sub {
     margin-top: 24px;
@@ -134,40 +157,10 @@
     animation: fadeUp 0.6s 0.8s forwards;
   }
 
-  .btn-primary {
-    background: var(--accent);
-    color: #000;
-    border: none;
-    padding: 14px 28px;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s;
-    letter-spacing: 0.5px;
-  }
-  .btn-primary:hover { background: #00ffb3; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,229,160,0.3); }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-    padding: 14px 28px;
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    font-size: 0.9rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* STATS */
   .stats {
     margin-top: 60px;
     display: flex;
-    gap: 40px;
+    gap: 48px;
     opacity: 0;
     animation: fadeUp 0.6s 1s forwards;
   }
@@ -180,7 +173,6 @@
   }
   .stat-label { font-size: 0.65rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
 
-  /* SECTION */
   section {
     position: relative;
     z-index: 1;
@@ -204,9 +196,9 @@
     letter-spacing: -1px;
     line-height: 1.1;
     margin-bottom: 12px;
+    color: var(--text);
   }
 
-  /* FEATURES */
   .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -235,32 +227,23 @@
   .feature-card:hover { background: var(--surface2); }
   .feature-card:hover::before { opacity: 1; }
 
-  .feature-icon {
-    font-size: 1.5rem;
-    margin-bottom: 16px;
-    display: block;
-  }
-
+  .feature-icon { font-size: 1.5rem; margin-bottom: 16px; display: block; }
   .feature-title {
     font-family: 'Syne', sans-serif;
     font-size: 1.05rem;
     font-weight: 700;
     margin-bottom: 8px;
+    color: var(--text);
   }
+  .feature-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
 
-  .feature-desc {
-    font-size: 0.8rem;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-
-  /* DEMO SECTION */
   .demo-wrapper {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
     overflow: hidden;
     margin-top: 48px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
   }
 
   .demo-header {
@@ -288,7 +271,6 @@
 
   .demo-body { padding: 32px; }
 
-  /* UPLOAD ZONE */
   .upload-zone {
     border: 2px dashed var(--border);
     border-radius: 6px;
@@ -297,21 +279,18 @@
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
+    background: var(--bg);
   }
   .upload-zone:hover, .upload-zone.dragover {
     border-color: var(--accent);
-    background: rgba(0,229,160,0.03);
+    background: var(--accent-light);
   }
   .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
   .upload-icon { font-size: 2rem; margin-bottom: 12px; }
   .upload-text { font-size: 0.85rem; color: var(--muted); }
   .upload-text strong { color: var(--accent); }
 
-  /* DATA PREVIEW */
-  .data-preview {
-    display: none;
-    margin-top: 20px;
-  }
+  .data-preview { display: none; margin-top: 20px; }
   .data-preview.visible { display: block; }
 
   .preview-label {
@@ -346,14 +325,11 @@
     border: 1px solid var(--border);
     color: var(--muted);
     white-space: nowrap;
+    background: var(--surface);
   }
   .preview-table tr:hover td { background: var(--surface2); color: var(--text); }
 
-  /* QUESTION INPUT */
-  .question-area {
-    margin-top: 24px;
-  }
-
+  .question-area { margin-top: 24px; }
   .question-label {
     font-size: 0.65rem;
     letter-spacing: 2px;
@@ -361,11 +337,7 @@
     color: var(--muted);
     margin-bottom: 10px;
   }
-
-  .question-row {
-    display: flex;
-    gap: 10px;
-  }
+  .question-row { display: flex; gap: 10px; }
 
   .question-input {
     flex: 1;
@@ -384,7 +356,7 @@
 
   .ask-btn {
     background: var(--accent);
-    color: #000;
+    color: #fff;
     border: none;
     padding: 12px 20px;
     font-family: 'Syne', sans-serif;
@@ -395,16 +367,10 @@
     transition: all 0.2s;
     white-space: nowrap;
   }
-  .ask-btn:hover { background: #00ffb3; }
+  .ask-btn:hover { background: #008f6c; }
   .ask-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  /* SUGGESTIONS */
-  .suggestions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 12px;
-  }
+  .suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .suggestion-chip {
     font-size: 0.7rem;
     background: var(--surface2);
@@ -417,7 +383,6 @@
   }
   .suggestion-chip:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* ANSWER BOX */
   .answer-box {
     display: none;
     margin-top: 24px;
@@ -429,13 +394,13 @@
   .answer-box.visible { display: block; }
 
   .answer-header {
-    background: var(--surface2);
+    background: var(--accent-light);
     padding: 10px 16px;
     font-size: 0.65rem;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--accent);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(0,166,126,0.15);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -456,13 +421,8 @@
     min-height: 60px;
   }
 
-  .thinking {
-    color: var(--muted);
-    font-style: italic;
-    font-size: 0.78rem;
-  }
+  .thinking { color: var(--muted); font-style: italic; font-size: 0.78rem; }
 
-  /* PRICING */
   .pricing-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -477,18 +437,19 @@
     padding: 32px;
     position: relative;
     transition: transform 0.2s;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
   }
-  .pricing-card:hover { transform: translateY(-4px); }
+  .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
   .pricing-card.featured {
     border-color: var(--accent);
-    background: linear-gradient(135deg, var(--surface), rgba(0,229,160,0.05));
+    background: linear-gradient(135deg, #fff, rgba(0,166,126,0.04));
   }
 
   .pricing-badge {
     position: absolute;
     top: -10px; right: 20px;
     background: var(--accent);
-    color: #000;
+    color: #fff;
     font-family: 'Syne', sans-serif;
     font-weight: 700;
     font-size: 0.65rem;
@@ -498,22 +459,9 @@
     text-transform: uppercase;
   }
 
-  .pricing-tier {
-    font-size: 0.65rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 12px;
-  }
-
-  .pricing-price {
-    font-family: 'Syne', sans-serif;
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 4px;
-  }
+  .pricing-tier { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .pricing-price { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; margin-bottom: 4px; color: var(--text); }
   .pricing-price span { font-size: 1rem; color: var(--muted); font-weight: 400; }
-
   .pricing-desc { font-size: 0.78rem; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
 
   .pricing-features { list-style: none; }
@@ -528,7 +476,6 @@
   }
   .pricing-features li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
 
-  /* FOOTER */
   footer {
     position: relative;
     z-index: 1;
@@ -537,20 +484,16 @@
     text-align: center;
     color: var(--muted);
     font-size: 0.75rem;
+    background: var(--surface);
   }
   footer strong { color: var(--accent); font-family: 'Syne', sans-serif; }
 
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
+  .divider { position: relative; z-index: 1; border: none; border-top: 1px solid var(--border); margin: 0; }
+  .highlight { color: var(--accent); }
 
-  /* LOADING SPINNER */
+  .error-msg { color: var(--danger); font-size: 0.78rem; margin-top: 8px; display: none; }
+  .error-msg.visible { display: block; }
+
   .spinner {
     display: inline-block;
     width: 12px; height: 12px;
@@ -561,45 +504,24 @@
     vertical-align: middle;
     margin-right: 6px;
   }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* SCROLLBAR */
   ::-webkit-scrollbar { width: 4px; height: 4px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-  /* SECTION DIVIDER */
-  .divider {
-    position: relative;
-    z-index: 1;
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 0;
-  }
-
-  .highlight { color: var(--accent); }
-  .highlight2 { color: var(--accent3); }
-
-  /* ERROR */
-  .error-msg {
-    color: var(--danger);
-    font-size: 0.78rem;
-    margin-top: 8px;
-    display: none;
-  }
-  .error-msg.visible { display: block; }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="logo">Data<span>Bridge</span></div>
   <div class="nav-badge">Beta — Free to Try</div>
   <button class="btn-primary" onclick="scrollToDemo()" style="padding:10px 20px;font-size:0.8rem;">Try Live Demo →</button>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-tag">// AI-Powered Business Intelligence</div>
   <h1>Your spreadsheet.<br><em>Now it thinks.</em></h1>
@@ -609,66 +531,30 @@
     <button class="btn-ghost" onclick="scrollToFeatures()">See How It Works</button>
   </div>
   <div class="stats">
-    <div class="stat">
-      <div class="stat-num">2min</div>
-      <div class="stat-label">Avg. Time to Insight</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">0</div>
-      <div class="stat-label">SQL Required</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">∞</div>
-      <div class="stat-label">Questions You Can Ask</div>
-    </div>
+    <div class="stat"><div class="stat-num">2min</div><div class="stat-label">Avg. Time to Insight</div></div>
+    <div class="stat"><div class="stat-num">0</div><div class="stat-label">SQL Required</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Questions You Can Ask</div></div>
   </div>
 </div>
 
 <hr class="divider">
 
-<!-- FEATURES -->
 <section id="features">
   <div class="section-label">// What it does</div>
   <div class="section-title">Your data analyst,<br><span class="highlight">on demand.</span></div>
   <p style="color:var(--muted);font-size:0.85rem;max-width:500px;line-height:1.7;margin-top:8px;">Built for ops teams, finance leads, and founders who need answers fast — not a 3-day analyst turnaround.</p>
-
   <div class="features-grid">
-    <div class="feature-card">
-      <span class="feature-icon">📊</span>
-      <div class="feature-title">Upload Anything</div>
-      <div class="feature-desc">Excel, CSV, Tally exports, Google Sheets — just drag and drop. No formatting required.</div>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">💬</span>
-      <div class="feature-title">Ask in Plain English</div>
-      <div class="feature-desc">"Which product has the highest return rate?" — just type it. No formulas, no pivot tables.</div>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">⚡</span>
-      <div class="feature-title">Instant Insight</div>
-      <div class="feature-desc">AI reads your data, identifies patterns, flags anomalies, and gives you a clear answer in seconds.</div>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">🎯</span>
-      <div class="feature-title">Actionable Output</div>
-      <div class="feature-desc">Not just "what" — but "so what". Every answer comes with a recommended next action.</div>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">🔒</span>
-      <div class="feature-title">Your Data Stays Yours</div>
-      <div class="feature-desc">Nothing is stored. Every session is isolated. Your business data never trains any model.</div>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">🇮🇳</span>
-      <div class="feature-title">Built for Indian Business</div>
-      <div class="feature-desc">Understands INR, GST columns, Indian date formats, and Tally export structures out of the box.</div>
-    </div>
+    <div class="feature-card"><span class="feature-icon">📊</span><div class="feature-title">Upload Anything</div><div class="feature-desc">Excel, CSV, Tally exports, Google Sheets — just drag and drop. No formatting required.</div></div>
+    <div class="feature-card"><span class="feature-icon">💬</span><div class="feature-title">Ask in Plain English</div><div class="feature-desc">"Which product has the highest return rate?" — just type it. No formulas, no pivot tables.</div></div>
+    <div class="feature-card"><span class="feature-icon">⚡</span><div class="feature-title">Instant Insight</div><div class="feature-desc">AI reads your data, identifies patterns, flags anomalies, and gives you a clear answer in seconds.</div></div>
+    <div class="feature-card"><span class="feature-icon">🎯</span><div class="feature-title">Actionable Output</div><div class="feature-desc">Not just "what" — but "so what". Every answer comes with a recommended next action.</div></div>
+    <div class="feature-card"><span class="feature-icon">🔒</span><div class="feature-title">Your Data Stays Yours</div><div class="feature-desc">Nothing is stored. Every session is isolated. Your business data never trains any model.</div></div>
+    <div class="feature-card"><span class="feature-icon">🇮🇳</span><div class="feature-title">Built for Indian Business</div><div class="feature-desc">Understands INR, GST columns, Indian date formats, and Tally export structures out of the box.</div></div>
   </div>
 </section>
 
 <hr class="divider">
 
-<!-- DEMO -->
 <section id="demo">
   <div class="section-label">// Live Demo</div>
   <div class="section-title">Drop your data.<br><span class="highlight">Ask anything.</span></div>
@@ -676,38 +562,24 @@
 
   <div class="demo-wrapper">
     <div class="demo-header">
-      <div class="demo-dots">
-        <div class="demo-dot"></div>
-        <div class="demo-dot"></div>
-        <div class="demo-dot"></div>
-      </div>
+      <div class="demo-dots"><div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div></div>
       <div class="demo-title-bar">databridge.ai — analyst session</div>
     </div>
-
     <div class="demo-body">
-
-      <!-- UPLOAD -->
       <div class="upload-zone" id="uploadZone">
         <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" onchange="handleFile(event)">
         <div class="upload-icon">📁</div>
         <div class="upload-text"><strong>Click to upload</strong> or drag & drop<br>CSV or Excel file — max 5MB</div>
       </div>
-
       <div style="text-align:center;margin:16px 0;color:var(--muted);font-size:0.75rem;">— or —</div>
       <div style="text-align:center;">
         <button class="btn-ghost" onclick="loadSampleData()" style="font-size:0.78rem;padding:10px 20px;">Load Sample Sales Data</button>
       </div>
-
-      <!-- DATA PREVIEW -->
       <div class="data-preview" id="dataPreview">
         <div class="preview-label">// Data Preview</div>
-        <div style="overflow-x:auto;">
-          <table class="preview-table" id="previewTable"></table>
-        </div>
+        <div style="overflow-x:auto;"><table class="preview-table" id="previewTable"></table></div>
         <div id="rowCount" style="font-size:0.7rem;color:var(--muted);margin-top:8px;"></div>
       </div>
-
-      <!-- QUESTION -->
       <div class="question-area" id="questionArea" style="display:none;">
         <div class="question-label">// Ask your data analyst</div>
         <div class="question-row">
@@ -717,38 +589,27 @@
         <div class="suggestions" id="suggestions"></div>
         <div class="error-msg" id="errorMsg"></div>
       </div>
-
-      <!-- ANSWER -->
       <div class="answer-box" id="answerBox">
-        <div class="answer-header">
-          <div class="answer-dot"></div>
-          DataBridge AI Response
-        </div>
+        <div class="answer-header"><div class="answer-dot"></div>DataBridge AI Response</div>
         <div class="answer-content" id="answerContent"></div>
       </div>
-
     </div>
   </div>
 </section>
 
 <hr class="divider">
 
-<!-- PRICING -->
 <section id="pricing">
   <div class="section-label">// Pricing</div>
   <div class="section-title">Pay per insight.<br><span class="highlight">No subscriptions.</span></div>
   <p style="color:var(--muted);font-size:0.85rem;max-width:500px;line-height:1.7;margin-top:8px;">Built for Indian businesses. Pay only when you need answers.</p>
-
   <div class="pricing-grid">
     <div class="pricing-card">
       <div class="pricing-tier">Starter</div>
-      <div class="pricing-price">Free <span></span></div>
+      <div class="pricing-price">Free</div>
       <div class="pricing-desc">Try before you commit. No credit card.</div>
       <ul class="pricing-features">
-        <li>5 AI analyses / month</li>
-        <li>Up to 500 rows</li>
-        <li>CSV only</li>
-        <li>Standard response speed</li>
+        <li>5 AI analyses / month</li><li>Up to 500 rows</li><li>CSV only</li><li>Standard response speed</li>
       </ul>
     </div>
     <div class="pricing-card featured">
@@ -757,11 +618,7 @@
       <div class="pricing-price">₹99 <span>/ analysis</span></div>
       <div class="pricing-desc">Buy a pack of analyses. Use when needed. Never expires.</div>
       <ul class="pricing-features">
-        <li>Unlimited rows</li>
-        <li>Excel + CSV + Tally export</li>
-        <li>Priority processing</li>
-        <li>Downloadable report PDF</li>
-        <li>Data never stored</li>
+        <li>Unlimited rows</li><li>Excel + CSV + Tally export</li><li>Priority processing</li><li>Downloadable report PDF</li><li>Data never stored</li>
       </ul>
     </div>
     <div class="pricing-card">
@@ -769,38 +626,26 @@
       <div class="pricing-price">₹4,999 <span>/ month</span></div>
       <div class="pricing-desc">For ops teams and finance leads who need this daily.</div>
       <ul class="pricing-features">
-        <li>Unlimited analyses</li>
-        <li>Up to 5 team members</li>
-        <li>API access</li>
-        <li>Custom report branding</li>
-        <li>Priority support</li>
+        <li>Unlimited analyses</li><li>Up to 5 team members</li><li>API access</li><li>Custom report branding</li><li>Priority support</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <strong>DataBridge AI</strong> — Built with Claude API · A pilot project by an AI-first data analyst<br>
   <span style="margin-top:8px;display:block;">Questions? hello@databridge.ai</span>
 </footer>
 
-<!-- SCRIPTS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
 <script>
 let parsedData = null;
 let csvString = '';
 
-function scrollToDemo() {
-  document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
-}
-function scrollToFeatures() {
-  document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
-}
+function scrollToDemo() { document.getElementById('demo').scrollIntoView({ behavior: 'smooth' }); }
+function scrollToFeatures() { document.getElementById('features').scrollIntoView({ behavior: 'smooth' }); }
 
-// DRAG & DROP
 const uploadZone = document.getElementById('uploadZone');
 uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
 uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
@@ -811,10 +656,7 @@ uploadZone.addEventListener('drop', e => {
   if (file) processFile(file);
 });
 
-function handleFile(e) {
-  const file = e.target.files[0];
-  if (file) processFile(file);
-}
+function handleFile(e) { const file = e.target.files[0]; if (file) processFile(file); }
 
 function processFile(file) {
   const ext = file.name.split('.').pop().toLowerCase();
@@ -827,8 +669,7 @@ function processFile(file) {
     reader.onload = (e) => {
       const wb = XLSX.read(e.target.result, { type: 'binary' });
       const ws = wb.Sheets[wb.SheetNames[0]];
-      const csv = XLSX.utils.sheet_to_csv(ws);
-      parseCSV(csv);
+      parseCSV(XLSX.utils.sheet_to_csv(ws));
     };
     reader.readAsBinaryString(file);
   }
@@ -843,52 +684,38 @@ function parseCSV(text) {
 
 function renderPreview(data, fields) {
   const table = document.getElementById('previewTable');
-  const preview = document.getElementById('dataPreview');
-  const questionArea = document.getElementById('questionArea');
-
   const previewRows = data.slice(0, 6);
   let html = '<thead><tr>' + fields.map(f => `<th>${f}</th>`).join('') + '</tr></thead><tbody>';
-  previewRows.forEach(row => {
-    html += '<tr>' + fields.map(f => `<td>${row[f] || ''}</td>`).join('') + '</tr>';
-  });
+  previewRows.forEach(row => { html += '<tr>' + fields.map(f => `<td>${row[f] || ''}</td>`).join('') + '</tr>'; });
   html += '</tbody>';
   table.innerHTML = html;
-
   document.getElementById('rowCount').textContent = `Showing 6 of ${data.length} rows · ${fields.length} columns detected`;
-  preview.classList.add('visible');
-  questionArea.style.display = 'block';
-
-  // Smart suggestions based on columns
+  document.getElementById('dataPreview').classList.add('visible');
+  document.getElementById('questionArea').style.display = 'block';
   generateSuggestions(fields);
-  questionArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  document.getElementById('questionArea').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function generateSuggestions(fields) {
-  const container = document.getElementById('suggestions');
   const lower = fields.map(f => f.toLowerCase());
-
   const suggestions = [];
   if (lower.some(f => f.includes('sale') || f.includes('revenue') || f.includes('amount')))
     suggestions.push('What is the total revenue?', 'Which month had the highest sales?');
   if (lower.some(f => f.includes('product') || f.includes('item') || f.includes('category')))
     suggestions.push('Which product performed best?', 'Show top 3 categories by revenue');
-  if (lower.some(f => f.includes('region') || f.includes('city') || f.includes('state') || f.includes('zone')))
+  if (lower.some(f => f.includes('region') || f.includes('city') || f.includes('state')))
     suggestions.push('Which region is underperforming?');
   if (lower.some(f => f.includes('customer') || f.includes('client')))
     suggestions.push('Who are the top 5 customers?');
-  if (lower.some(f => f.includes('date') || f.includes('month') || f.includes('quarter')))
-    suggestions.push('What is the month-on-month growth trend?');
-
   if (suggestions.length === 0)
     suggestions.push('Summarize this data', 'What are the key trends?', 'Find any anomalies');
-
-  container.innerHTML = suggestions.slice(0, 4).map(s =>
+  document.getElementById('suggestions').innerHTML = suggestions.slice(0, 4).map(s =>
     `<div class="suggestion-chip" onclick="document.getElementById('questionInput').value='${s}';askQuestion()">${s}</div>`
   ).join('');
 }
 
 function loadSampleData() {
-  const sample = `Month,Region,Product,Sales_INR,Units,Returns
+  parseCSV(`Month,Region,Product,Sales_INR,Units,Returns
 Jan-24,North,Widget Pro,125000,48,3
 Jan-24,South,Widget Pro,98000,38,1
 Jan-24,West,Widget Lite,45000,90,8
@@ -904,44 +731,32 @@ Mar-24,East,Widget Pro,135000,52,5
 Apr-24,North,Widget Lite,58000,116,11
 Apr-24,South,Widget Pro,152000,58,2
 Apr-24,West,Widget Pro,141000,54,3
-Apr-24,East,Widget Pro,129000,50,4`;
-  parseCSV(sample);
+Apr-24,East,Widget Pro,129000,50,4`);
 }
 
 async function askQuestion() {
   const question = document.getElementById('questionInput').value.trim();
-  if (!question) return;
-  if (!parsedData) {
-    showError('Please upload data or load sample data first.');
-    return;
-  }
+  if (!question || !parsedData) { showError('Please load data first.'); return; }
 
   const btn = document.getElementById('askBtn');
   const answerBox = document.getElementById('answerBox');
   const answerContent = document.getElementById('answerContent');
-  const errorMsg = document.getElementById('errorMsg');
+  document.getElementById('errorMsg').classList.remove('visible');
 
   btn.disabled = true;
   btn.textContent = 'Analyzing...';
-  errorMsg.classList.remove('visible');
   answerBox.classList.add('visible');
   answerContent.innerHTML = '<span class="thinking"><span class="spinner"></span>Reading your data and generating insight...</span>';
 
   const prompt = `You are DataBridge AI — a sharp, India-savvy business analyst AI.
-
-The user has uploaded a dataset. Here is a CSV preview (first 6000 chars):
-${csvString}
-
-Dataset summary: ${parsedData.length} rows, columns: ${Object.keys(parsedData[0] || {}).join(', ')}
-
-The user asks: "${question}"
-
+Dataset CSV (first 6000 chars): ${csvString}
+Summary: ${parsedData.length} rows, columns: ${Object.keys(parsedData[0] || {}).join(', ')}
+User asks: "${question}"
 Reply with:
-1. A direct, clear answer to their question (2-4 sentences)
+1. A direct clear answer (2-4 sentences)
 2. One key insight they might not have noticed
 3. One recommended action ("→ Action:")
-
-Be concise, data-driven, and specific. Use INR formatting where relevant. No markdown headers. No fluff.`;
+Be concise, data-driven, specific. Use INR formatting where relevant. No markdown headers. No fluff.`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -953,17 +768,13 @@ Be concise, data-driven, and specific. Use INR formatting where relevant. No mar
         messages: [{ role: 'user', content: prompt }]
       })
     });
-
     const data = await response.json();
-
     if (data.error) throw new Error(data.error.message);
-
     const text = data.content?.find(b => b.type === 'text')?.text || 'No response received.';
     answerContent.innerHTML = text.replace(/\n/g, '<br>').replace(/→ Action:/g, '<br><strong style="color:var(--accent)">→ Action:</strong>');
-
   } catch (err) {
     answerContent.innerHTML = '';
-    showError('Could not connect to AI. Make sure you\'re running this in Claude.ai artifacts environment.');
+    showError('Could not connect to AI. Try again in a moment.');
   }
 
   btn.disabled = false;
