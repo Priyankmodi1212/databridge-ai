@@ -10,8 +10,8 @@ export default async function handler(req, res) {
     const { prompt } = req.body;
     if (!prompt) return res.status(400).json({ error: 'No prompt provided' });
 
-    const apiKey = 'AIzaSyC3tFhnv4mgunhhTSz0zVSn6Gd7o2PebsU';
-    if (!apiKey) return res.status(500).json({ error: 'API key not configured' });
+    // ✅ PASTE YOUR GEMINI API KEY BELOW (between the quotes)
+    const apiKey = 'AIzaSyCdMxBdJ2mIVZAEhcQ9IfWO3KDHSmk_Y9c';
 
     const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey;
 
@@ -26,8 +26,11 @@ export default async function handler(req, res) {
     const raw = await response.text();
 
     let data;
-    try { data = JSON.parse(raw); }
-    catch(e) { return res.status(500).json({ error: 'Gemini error: ' + raw.slice(0, 200) }); }
+    try {
+      data = JSON.parse(raw);
+    } catch(e) {
+      return res.status(500).json({ error: 'Gemini error: ' + raw.slice(0, 200) });
+    }
 
     if (data.error) return res.status(500).json({ error: data.error.message || JSON.stringify(data.error) });
 
