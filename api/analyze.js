@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     const { prompt } = req.body;
     if (!prompt) return res.status(400).json({ error: 'No prompt provided' });
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = 'AIzaSyC3tFhnv4mgunhhTSz0zVSn6Gd7o2PebsU';
     if (!apiKey) return res.status(500).json({ error: 'API key not configured' });
 
     const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey;
