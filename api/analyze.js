@@ -20,7 +20,7 @@ export default async function handler(req, res) {
         'Authorization': 'Bearer ' + apiKey
       },
       body: JSON.stringify({
-        model: 'nvidia/nemotron-super-49b-v1',
+        model: 'nvidia/llama-3.3-nemotron-super-49b-v1',
         messages: [{ role: 'user', content: prompt }],
         max_tokens: 1000,
         temperature: 0.7
