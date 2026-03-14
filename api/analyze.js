@@ -10,8 +10,8 @@ export default async function handler(req, res) {
     const { prompt } = req.body;
     if (!prompt) return res.status(400).json({ error: 'No prompt provided' });
 
-    // ✅ PASTE YOUR NVIDIA API KEY BELOW (between the quotes)
-    const apiKey = 'PASTE_YOUR_NVIDIA_KEY_HERE';
+    const apiKey = process.env.NVIDIA_API_KEY;
+    if (!apiKey) return res.status(500).json({ error: 'API key not configured' });
 
     const response = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
       method: 'POST',
