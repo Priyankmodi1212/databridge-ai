@@ -132,7 +132,7 @@
 <nav>
   <div class="logo">Data<span>Bridge</span></div>
   <div class="nav-badge">Beta — Free to Try</div>
-  <button class="btn-primary" onclick="scrollToDemo()" style="padding:10px 20px;font-size:0.8rem;">Try Live Demo →</button>
+  <div id="authNav"><button class="btn-ghost" onclick="window.location.href='/login.html'" style="padding:8px 16px;font-size:0.78rem;margin-right:8px;">Sign In</button><button class="btn-primary" onclick="window.location.href='/login.html'" style="padding:8px 16px;font-size:0.78rem;">Sign Up Free</button></div>
 </nav>
 
 <div class="hero">
@@ -251,6 +251,38 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+var SUPABASE_URL = 'https://bnjgttzibuaohebtnflf.supabase.co';
+var SUPABASE_KEY = 'sb_publishable_PAKOGW8qNa6nCDG0kR2ggQ_5jQPOB9V';
+var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+var currentSession = null;
+
+sb.auth.getSession().then(function(result) {
+  currentSession = result.data.session;
+  updateNav();
+});
+
+sb.auth.onAuthStateChange(function(event, session) {
+  currentSession = session;
+  updateNav();
+});
+
+function updateNav() {
+  var authDiv = document.getElementById('authNav');
+  if (currentSession) {
+    var email = currentSession.user.email;
+    authDiv.innerHTML = '<span style="font-size:0.75rem;color:var(--muted);margin-right:12px;">' + email + '</span><button class="btn-ghost" onclick="signOut()" style="padding:8px 16px;font-size:0.78rem;">Sign Out</button>';
+  } else {
+    authDiv.innerHTML = '<button class="btn-ghost" onclick="window.location.href=\'/login.html\'" style="padding:8px 16px;font-size:0.78rem;margin-right:8px;">Sign In</button><button class="btn-primary" onclick="window.location.href=\'/login.html\'" style="padding:8px 16px;font-size:0.78rem;">Sign Up Free</button>';
+  }
+}
+
+async function signOut() {
+  await sb.auth.signOut();
+  window.location.reload();
+}
+</script>
 <script>
 var parsedData = null;
 var csvString = '';
@@ -351,9 +383,16 @@ function askQuestion() {
 
   var prompt = 'You are DataBridge AI — a sharp, India-savvy business analyst AI.\nDataset CSV: ' + csvString + '\nSummary: ' + parsedData.length + ' rows, columns: ' + Object.keys(parsedData[0] || {}).join(', ') + '\nUser asks: "' + question + '"\nReply with:\n1. A direct clear answer (2-4 sentences)\n2. One key insight they might not have noticed\n3. One recommended action ("→ Action:")\nBe concise, data-driven, specific. Use INR formatting where relevant. No markdown headers. No fluff.';
 
+  var token = currentSession ? currentSession.access_token : '';
+  if (!token) {
+    showError('Please sign in to analyze data.');
+    btn.disabled = false; btn.textContent = 'Analyze →';
+    answerContent.innerHTML = '<span style="color:var(--muted)">Please <a href="/login.html" style="color:var(--accent)">sign in</a> to use DataBridge AI.</span>';
+    return;
+  }
   fetch('/api/analyze', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
     body: JSON.stringify({ prompt: prompt })
   })
   .then(function(res) { return res.json(); })
