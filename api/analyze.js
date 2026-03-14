@@ -10,16 +10,20 @@ export default async function handler(req, res) {
     const { prompt } = req.body;
     if (!prompt) return res.status(400).json({ error: 'No prompt provided' });
 
-    // ✅ PASTE YOUR GEMINI API KEY BELOW (between the quotes)
-    const apiKey = 'AIzaSyCdMxBdJ2mIVZAEhcQ9IfWO3KDHSmk_Y9c';
+    // ✅ PASTE YOUR NVIDIA API KEY BELOW (between the quotes)
+    const apiKey = 'PASTE_YOUR_NVIDIA_KEY_HERE';
 
-    const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey;
-
-    const response = await fetch(url, {
+    const response = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + apiKey
+      },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }]
+        model: 'nvidia/nemotron-super-49b-v1',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 1000,
+        temperature: 0.7
       })
     });
 
@@ -29,12 +33,12 @@ export default async function handler(req, res) {
     try {
       data = JSON.parse(raw);
     } catch(e) {
-      return res.status(500).json({ error: 'Gemini error: ' + raw.slice(0, 200) });
+      return res.status(500).json({ error: 'API error: ' + raw.slice(0, 200) });
     }
 
     if (data.error) return res.status(500).json({ error: data.error.message || JSON.stringify(data.error) });
 
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response received.';
+    const text = data.choices?.[0]?.message?.content || 'No response received.';
     return res.status(200).json({ result: text });
 
   } catch (err) {
